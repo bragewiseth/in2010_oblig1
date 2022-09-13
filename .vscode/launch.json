@@ -1,0 +1,51 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": 
+    [    
+        {
+            "type": "java",
+            "name": "Launch BinerDeling",
+            "request": "launch",
+            "mainClass": "",
+            "args": "${command:SpecifyProgramArgs}"
+        },
+        {
+            "type": "java",
+            "name": "Launch Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "Launch AVL",
+            "request": "launch",
+            "mainClass": "AVL",
+            "projectName": "oblig1_bdc1d30f"
+        },
+        {
+            "type": "java",
+            "name": "Launch BalanceChecker",
+            "request": "launch",
+            "mainClass": "BalanceChecker",
+            "projectName": "oblig1_bdc1d30f"
+        },
+        {
+            "type": "java",
+            "name": "Launch Teque",
+            "request": "launch",
+            "mainClass": "Teque",
+            "projectName": "oblig1_bdc1d30f"
+        },
+        {
+            "type": "java",
+            "name": "Launch FinnKatt",
+            "request": "launch",
+            "mainClass": "oppgave3.FinnKatt",
+            "projectName": "oblig1_bdc1d30f"
+        }
+    ]
+
+}

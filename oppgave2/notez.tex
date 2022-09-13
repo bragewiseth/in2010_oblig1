@@ -1,0 +1,133 @@
+\documentclass{article}%
+\usepackage{cfr-lm}%
+\usepackage[T1]{fontenc}%
+% \usepackage[utf8]{inputenc}%
+\usepackage{physics}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage[margin=3cm]{geometry}
+\usepackage{changepage}
+\usepackage{fontspec}
+\usepackage{xcolor}
+% \usepackage{tikz}
+%
+%
+\title{Oblig 1}%
+\author{Brage Wiseth}%
+\date{\today}%
+\newfontfamily{\iosevka}{Iosevka Fixed Curly Semibold Extended}%
+\newcommand{\æ}{\textunderscore}
+\newcommand{\å}{\iosevka}
+%
+\begin{document}%
+\normalsize%
+\iosevka
+{\let\newpage\relax\maketitle}
+\normalfont
+\vspace*{.8cm}
+% \hspace*{-5.4mm}%
+%
+%
+%
+\section*{Oppgave 2}
+For å implementere "Teque" bruker jeg to sirkulere arrays {\iosevka f} og {\iosevka b} som representerer hver sin halvdel av køen. Hver array har en tilhørende {\iosevka front} og en {\iosevka back} peker.
+De døpes {\iosevka f\textunderscore front, f\textunderscore back, b\textunderscore front, b\textunderscore back}. {\iosevka f} for første halvdel {\iosevka b} for andre halvdel. 
+{\iosevka b\textunderscore front} fortsetter køen der {\iosevka f\textunderscore back} slapp.
+Det vil si at hvis {\iosevka b\textunderscore front} tilsvarer indeks $5$ så vil {\iosevka f\textunderscore back} tilsvare indeks $4$.
+{\iosevka f} og {\iosevka b} har hver sin referanse til mengder elementer i seg selv. Det brukes til å balansere de to.   \\\\
+    \begin{minipage}[t]{.48\linewidth}
+        \subsection*{Algorithm: Push front} 
+        {\sbweight Input:} Ett element {\iosevka x}\\
+        {\sbweight Output:} Plasserer {\iosevka x} fremst i køen\\\\
+        \iosevka
+        \color{darkgray}
+        1 procedure push\textunderscore front(x) \\
+        2\hspace*{6mm} f[f\textunderscore front] $\leftarrow$  x\\
+        3\hspace*{6mm} f\textunderscore front++ and f\æ size++\\
+        4\hspace*{6mm} if f\textunderscore front > |f|-1 then\\
+        5\hspace*{12mm} f\textunderscore front $\leftarrow$ 0 \\
+        6\hspace*{6mm} balanser()
+    \end{minipage}
+    \hspace{4mm}
+    \begin{minipage}[t]{.48\linewidth}
+        \subsection*{Algorithm: Push back} 
+        {\sbweight Input:} Ett element {\å x}\\
+        {\sbweight Output:} Plasserer {\iosevka x} sist i køen\\\\
+        \iosevka
+        \color{darkgray}
+        1 procedure push\textunderscore back(x) \\
+        2\hspace*{6mm} b[b\textunderscore back] $\leftarrow$ x\\
+        3\hspace*{6mm} b\textunderscore back-- and b\æ size++\\
+        4\hspace*{6mm} if b\textunderscore back < 0 then \\
+        5\hspace*{12mm} b\textunderscore back $\leftarrow$ |b|-1 \\
+        6\hspace*{6mm} balanser()  
+    \end{minipage}\\\\\\\\
+    \begin{minipage}[t]{.48\linewidth}
+        \subsection*{Algorithm: push middle} 
+        {\sbweight Input:} Ett element {\å x}\\
+        {\sbweight Output:} Plasserer {\iosevka x} midt i køen\\\\
+        \iosevka
+        \color{darkgray}
+        1 procedure push\textunderscore middle(x) \\
+        2\hspace*{6mm} if f\æ size < b\æ size then \\
+        3\hspace*{12mm} f[f\æ back] $\leftarrow$ b[b\æ front-1]\\
+        4\hspace*{12mm} b[b\æ front-1] $\leftarrow$ x \\
+        5\hspace*{12mm} f\æ back-- and f\æ size++\\
+        6\hspace*{12mm} if f\æ back < 0 then\\
+        7\hspace*{18mm} f\æ back $\leftarrow$ |f|-1\\
+        8\hspace*{6mm} else then\\
+        9\hspace*{12mm} b[b\æ front] $\leftarrow$ x\\
+        10\hspace*{10mm} b\æ front++ and b\æ size++\\
+        11\hspace*{10mm} if b\æ front > |b|-1 then\\
+        12\hspace*{16mm} b\æ front $\leftarrow$ 0 \\
+    \end{minipage}
+    \hspace{4mm}
+    \begin{minipage}[t]{.48\linewidth}
+        \subsection*{Algorithm: get} 
+        {\sbweight Input:} En indeks {\å i}\\
+        {\sbweight Output:} element på indeks {\å i}\\\\
+        \iosevka
+        \color{darkgray}
+        1 procedure get(i) \\
+        2\hspace*{6mm} if i < f\æ size then\\
+        3\hspace*{12mm} j $\leftarrow$ (f\æ front-1) - i\\
+        4\hspace*{12mm} if j < 0 then\\
+        5\hspace*{18mm} return f[|f| + j]\\
+        6\hspace*{12mm} else return f[j]\\
+        7\hspace*{6mm} else then\\
+        8\hspace*{12mm} j $\leftarrow$ b\æ (front-1) - (i-f\æ size)\\
+        9\hspace*{12mm} if j < 0 then\\
+        10\hspace*{16mm} return b[|b| + j]\\
+        11\hspace*{10mm} else return b[j]\\
+    \end{minipage}\\\\
+Til slutt har vi hjelpemetoden {\å balanser()}:\\
+\begin{center}
+    \begin{minipage}[t]{.48\linewidth}
+        \subsection*{Algorithm: balanser} 
+        \iosevka
+        \color{darkgray}
+        1 procedure balanser() \\
+        2\hspace*{6mm} d $\leftarrow$ f\æ size - b\æ size\\
+        3\hspace*{6mm} if d > 1 then\\
+        4\hspace*{12mm} f\æ back++\\
+        5\hspace*{12mm} b[b\æ front] $\leftarrow$ f[f\æ back]\\
+        6\hspace*{12mm} f[f\æ back] $\leftarrow$ null\\
+        7\hspace*{12mm} b\æ front++\\
+        8\hspace*{12mm} if b\æ front > |b|-1 then\\
+        9\hspace*{18mm} b\æ front $\leftarrow$ 0\\
+        10\hspace*{10mm} b\æ size++ and f\æ size--\\
+        11\hspace*{4mm} if d < -1 then\\
+        12\hspace*{10mm} b\æ front-- \\
+        13\hspace*{10mm} f[f\æ back] $\leftarrow$ b[b\æ front]\\
+        14\hspace*{10mm} b[b\æ front] $\leftarrow$ null\\
+        15\hspace*{10mm} f\æ back--\\
+        16\hspace*{10mm} if f\æ back < 0 then \\
+        17\hspace*{16mm} f\æ back $\leftarrow$ |f|-1 \\
+        18\hspace*{10mm} b\æ size-- and f\æ size++\\
+    \end{minipage}
+\end{center}
+    %
+%
+%
+\end{document}%     
